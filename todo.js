@@ -57,7 +57,7 @@ function finishToDo(event) {
   pendings = cleanToDos;
 
   const fullText = li.querySelector("span").innerText;
-  paintFinish(fullText.split("\n")[0], fullText.split("@")[1]);
+  paintFinish(fullText.split("\n")[0], fullText.split("\n")[1]);
 }
 
 function returnToDo(event) {
@@ -72,7 +72,7 @@ function returnToDo(event) {
   finisheds = cleanToDos;
 
   const fullText = li.querySelector("span").innerText;
-  paintToDo(fullText.split("\n")[0], fullText.split("@")[1]);
+  paintToDo(fullText.split("\n")[0], fullText.split("\n")[1]);
 }
 
 function paintFinish(text, date) {

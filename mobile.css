@@ -95,7 +95,7 @@ ul li {
 
 .js-toDoListContainer {
   width: 70vw;
-  height: 320px;
+  height: 35vh;
   overflow-y: scroll;
   background-color: rgba(121, 127, 122, 0.75);
 }
