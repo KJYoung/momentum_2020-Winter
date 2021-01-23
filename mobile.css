@@ -68,10 +68,10 @@ h1 {
 }
 
 .title {
-  font-size: 54px;
+  font-size: 82px;
 }
 .js-title {
-  font-size: 82px;
+  font-size: 124px;
 }
 
 .js-toDoContainer {
@@ -91,6 +91,21 @@ ul {
 
 ul li {
   font-size: 42px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+ul li button {
+  background: inherit;
+  border: none;
+  box-shadow: none;
+  border-radius: 0;
+  padding: 0;
+  overflow: visible;
+  cursor: pointer;
+  font-size: 70px;
+  margin-left: 5vw;
 }
 
 .js-toDoListContainer {

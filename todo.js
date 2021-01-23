@@ -119,7 +119,7 @@ function paintToDo(text, date) {
   let toDoId = pendings.length + 1;
 
   delBtn.innerText = "❌";
-  finishBtn.innerText = "✔";
+  finishBtn.innerText = "👍🏻";
 
   toDoText.innerText = `${text}\n@${date}`;
 
