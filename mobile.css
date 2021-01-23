@@ -10,8 +10,8 @@ body {
 
 body > div {
   background-color: rgba(0, 0, 0, 0.6);
-  width: 60vw;
-  height: 200vh;
+  width: 75vw;
+  height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -56,23 +56,29 @@ body > div {
 }
 
 .js-clock {
-  font-size: 28px;
-}
-.weatherSpan {
-  font-size: 21px;
+  font-size: 40px;
 }
 
 h1 {
   margin: 10px 0px;
 }
 
+h1,
+.weatherSpan {
+  font-size: 34px;
+}
 .js-toDoContainer {
   display: flex;
   flex-direction: column;
 }
 
+.input {
+  width: 300px;
+  height: 100px;
+}
+
 .js-toDoInnerContainer {
-  margin: 10px 50px;
+  margin: 25px 50px;
 }
 
 ul {
@@ -81,8 +87,8 @@ ul {
 }
 
 .js-toDoListContainer {
-  width: 450px;
-  height: 300px;
+  width: 510px;
+  height: 320px;
   overflow-y: scroll;
   background-color: rgba(61, 77, 82, 0.6);
 }
