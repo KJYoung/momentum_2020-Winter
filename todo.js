@@ -56,7 +56,8 @@ function finishToDo(event) {
   });
   pendings = cleanToDos;
 
-  paintFinish(li.querySelector("span").innerText);
+  const fullText = li.querySelector("span").innerText;
+  paintFinish(fullText.split("\n")[0], fullText.split("@")[1]);
 }
 
 function returnToDo(event) {
@@ -70,10 +71,11 @@ function returnToDo(event) {
   });
   finisheds = cleanToDos;
 
-  paintToDo(li.querySelector("span").innerText);
+  const fullText = li.querySelector("span").innerText;
+  paintToDo(fullText.split("\n")[0], fullText.split("@")[1]);
 }
 
-function paintFinish(text) {
+function paintFinish(text, date) {
   const toDoItem = document.createElement("li");
   const delBtn = document.createElement("button");
   const returnBtn = document.createElement("button");
@@ -83,7 +85,7 @@ function paintFinish(text) {
 
   delBtn.innerText = "❌";
   returnBtn.innerText = "👎🏻";
-  toDoText.innerText = text;
+  toDoText.innerText = `${text}\n${date}`;
 
   delBtn.addEventListener("click", deleteToDo2);
   returnBtn.addEventListener("click", returnToDo);
@@ -92,28 +94,32 @@ function paintFinish(text) {
   toDoItem.appendChild(delBtn);
   toDoItem.appendChild(returnBtn);
   toDoItem.id = toDoId;
+  toDoItem.style.borderBottom = "1px solid #EBEFF4";
+
   finishedList.appendChild(toDoItem);
 
   const toDoObj = {
     text: text,
-    id: toDoId
+    id: toDoId,
+    dateInfo: date
   };
   finisheds.push(toDoObj);
   saveToDos();
 }
 
-function paintToDo(text) {
+function paintToDo(text, date) {
   const toDoItem = document.createElement("li");
   const delBtn = document.createElement("button");
   const finishBtn = document.createElement("button");
   const toDoText = document.createElement("span");
+  
 
   let toDoId = pendings.length + 1;
 
   delBtn.innerText = "❌";
   finishBtn.innerText = "✔";
 
-  toDoText.innerText = text;
+  toDoText.innerText = `${text}\n${date}`;
 
   delBtn.addEventListener("click", deleteToDo1);
   finishBtn.addEventListener("click", finishToDo);
@@ -123,10 +129,12 @@ function paintToDo(text) {
   toDoItem.appendChild(finishBtn);
   toDoItem.id = toDoId;
   pendingList.appendChild(toDoItem);
+  toDoItem.style.borderBottom = "1px solid #EBEFF4";
 
   const toDoObj = {
     text: text,
-    id: toDoId
+    id: toDoId,
+    dateInfo: date
   };
   pendings.push(toDoObj);
   saveToDos();
@@ -139,24 +147,26 @@ function loadToDos() {
   if (loadedPending !== null) {
     const parsedToDos = JSON.parse(loadedPending);
     parsedToDos.forEach(function (toDo) {
-      paintToDo(toDo.text);
+      paintToDo(toDo.text, toDo.dateInfo);
     });
   }
   if (loadedFinished !== null) {
     const parsedToDos = JSON.parse(loadedFinished);
     parsedToDos.forEach(function (toDo) {
-      paintFinish(toDo.text);
+      paintFinish(toDo.text, toDo.dateInfo);
     });
   }
 }
 
 function handleTDSubmit(event) {
+  const toDoDate = new Date();
+
   event.preventDefault();
   const currentValue = toDoInput.value;
   if(currentValue === ""){
     //No Input!
   }else{
-    paintToDo(currentValue);
+    paintToDo(currentValue, `${toDoDate.getFullYear()}/${toDoDate.getMonth()+1}/${toDoDate.getDate()}`);
   }
   toDoInput.value = "";
 }
