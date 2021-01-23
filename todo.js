@@ -1,4 +1,4 @@
-//todo 완료 / 미완료 변경 기능은 따로 challenge 구현하면서 만들어 놓았음.
+//todo 완료 / 미완료 변경 기능은 따로 challenge 구현하면서 만들어 놓았음. 
 
 const toDoForm = document.querySelector(".js-toDoForm");
 const toDoInput = toDoForm.querySelector("input");
