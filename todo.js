@@ -57,7 +57,8 @@ function finishToDo(event) {
   pendings = cleanToDos;
 
   const fullText = li.querySelector("span").innerText;
-  paintFinish(fullText.split("\n")[0], fullText.split("\n")[1]);
+  console.log(`${fullText.split("@")[0]}, ${fullText.split("@")[1]}`);
+  paintFinish(fullText.split("@")[0], fullText.split("@")[1]);
 }
 
 function returnToDo(event) {
@@ -72,7 +73,8 @@ function returnToDo(event) {
   finisheds = cleanToDos;
 
   const fullText = li.querySelector("span").innerText;
-  paintToDo(fullText.split("\n")[0], fullText.split("\n")[1]);
+  console.log(`${fullText.split("@")[0]}, ${fullText.split("@")[1]}`);
+  paintToDo(fullText.split("@")[0], fullText.split("@")[1]);
 }
 
 function paintFinish(text, date) {
@@ -85,7 +87,7 @@ function paintFinish(text, date) {
 
   delBtn.innerText = "❌";
   returnBtn.innerText = "👎🏻";
-  toDoText.innerText = `${text}\n${date}`;
+  toDoText.innerText = `${text}\n@${date}`;
 
   delBtn.addEventListener("click", deleteToDo2);
   returnBtn.addEventListener("click", returnToDo);
@@ -119,7 +121,7 @@ function paintToDo(text, date) {
   delBtn.innerText = "❌";
   finishBtn.innerText = "✔";
 
-  toDoText.innerText = `${text}\n${date}`;
+  toDoText.innerText = `${text}\n@${date}`;
 
   delBtn.addEventListener("click", deleteToDo1);
   finishBtn.addEventListener("click", finishToDo);
