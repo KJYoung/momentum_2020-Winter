@@ -79,9 +79,28 @@ h1 {
   flex-direction: column;
 }
 
-.input {
-  width: 40vw;
+input {
+  width: 60vw;
   height: 10vh;
+  display: block;
+  margin: 2px;
+  padding: 5px;
+  font-family: "Lora";
+  font-size: 18px;
+  border: 2px solid white;
+  border-radius: 10px;
+  background: transparent;
+  color: white;
+  box-sizing: border-box;
+}
+
+input:focus {
+  outline: none;
+}
+
+input::placeholder {
+  color: white;
+  font-style: italic;
 }
 
 ul {
@@ -93,7 +112,13 @@ ul li {
   font-size: 42px;
   display: flex;
   flex-direction: row;
+  justify-content: flex-end;
   align-items: center;
+  padding: 0 2vw;
+}
+
+ul li span {
+  width: 100%;
 }
 
 ul li button {
