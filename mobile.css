@@ -63,22 +63,25 @@ h1 {
   margin: 10px 0px;
 }
 
-h1,
 .weatherSpan {
   font-size: 34px;
 }
+
+.title {
+  font-size: 54px;
+}
+.js-title {
+  font-size: 82px;
+}
+
 .js-toDoContainer {
   display: flex;
   flex-direction: column;
 }
 
 .input {
-  width: 300px;
-  height: 100px;
-}
-
-.js-toDoInnerContainer {
-  margin: 25px 50px;
+  width: 40vw;
+  height: 10vh;
 }
 
 ul {
@@ -86,11 +89,15 @@ ul {
   padding-left: 0px;
 }
 
+ul li {
+  font-size: 42px;
+}
+
 .js-toDoListContainer {
-  width: 510px;
+  width: 70vw;
   height: 320px;
   overflow-y: scroll;
-  background-color: rgba(61, 77, 82, 0.6);
+  background-color: rgba(121, 127, 122, 0.75);
 }
 
 @media screen and (max-width: 1360px) {
