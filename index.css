@@ -1,14 +1,14 @@
 body {
   background-color: #ecf0f1;
-  background-color: #2c3e50;
   display: flex;
   justify-content: center;
   align-items: flex-start;
   color: whitesmoke;
+  margin: 0px;
 }
 
 body > div {
-  background-color: rgba(0, 0, 0, 0.4);
+  background-color: rgba(0, 0, 0, 0.6);
   width: 50vw;
   height: 100vh;
   display: flex;
@@ -52,4 +52,37 @@ body > div {
   height: 100%;
   z-index: -1;
   animation: fadeIn 0.5s linear;
+}
+
+.js-clock {
+  font-size: 28px;
+}
+.weatherSpan {
+  font-size: 21px;
+}
+
+h1,
+h4 {
+  margin: 10px 0px;
+}
+
+.js-toDoContainer {
+  display: flex;
+  flex-direction: row;
+}
+
+.js-toDoInnerContainer {
+  margin: 10px 50px;
+}
+
+ul {
+  list-style: none;
+  padding-left: 0px;
+}
+
+.js-toDoListContainer {
+  width: 250px;
+  height: 240px;
+  overflow-y: scroll;
+  background-color: rgba(61, 77, 82, 0.6);
 }

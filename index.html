@@ -18,9 +18,23 @@
     <form class="js-toDoForm">
       <input type="text" placeholder="Write a to do." />
     </form>
-    <ul class="js-toDoList"></ul>
-    <span class="js-weather"></span>
-    <span class="js-tempmaxmin"></span>
+    <div class="js-toDoContainer">
+      <div class="js-toDoInnerContainer">
+      <h2>Pending</h2>
+      <div class="js-toDoListContainer">
+        <ul class="js-toDoPending"></ul>
+      </div>
+    </div>
+    <div class="js-toDoInnerContainer">
+      <h2>Finished</h2>
+      <div class="js-toDoListContainer">
+      <ul class="js-toDoFinished"></ul>
+      </div>
+    </div>
+    </div>
+    <span class="weatherSpan js-weather"></span>
+    <span class="weatherSpan js-tempmaxmin"></span>
+    <span class="weatherSpan js-weatherDescription"></span>
   </div>
     <script src="index.js"></script>
     <script src="clock.js"></script>

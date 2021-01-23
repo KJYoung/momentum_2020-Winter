@@ -1,6 +1,6 @@
 const body = document.querySelector("body");
 
-const IMG_NUMBER = 4;
+const IMG_NUMBER = 6;
 
 function handleImgLoad(){
 
@@ -11,6 +11,7 @@ function paintImage(imgNumber){
     image.src = `images/bg${imgNumber}.jpg`;
     image.classList.add('bgImage');
     image.addEventListener("loadend", handleImgLoad);
+    image.style.opacity=0.7;
     body.appendChild(image);
 }
 
