@@ -1,3 +1,5 @@
+//todo 완료 / 미완료 변경 기능은 따로 challenge 구현하면서 만들어 놓았음.
+
 const toDoForm = document.querySelector(".js-toDoForm");
 const toDoInput = toDoForm.querySelector("input");
 const toDoList = document.querySelector(".js-toDoList");
@@ -20,7 +22,7 @@ function deleteToDo(event){
         return toDo.id !== parseInt(li.id);
     });
     //array의 모든 아이템을 통해 함수를 실행하고 true가 반환값인 아이템만을 가진 array를 반환.
-
+    
     toDos = cleanToDos;
     saveToDos();
 }
