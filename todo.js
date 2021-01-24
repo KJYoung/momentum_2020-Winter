@@ -6,6 +6,8 @@ const toDoInput = toDoForm.querySelector("input");
 const pendingList = document.querySelector(".js-toDoPending");
 const finishedList = document.querySelector(".js-toDoFinished");
 
+const bodytd = document.querySelector("body");
+
 //LocalStorage key name
 const PENDING_LS = "toDos";
 const FINISHED_LS = "finished";
@@ -19,20 +21,20 @@ function saveToDos() {
   localStorage.setItem(FINISHED_LS, JSON.stringify(finisheds));
 }
 
-function deleteToDo1(event) {
+function deleteToDo1_dialog(event){
   const btn = event.target;
-  const li = btn.parentNode;
-
-  pendingList.removeChild(li);
-
-  const cleanToDos = pendings.filter(function (toDo) {
-    return toDo.id !== parseInt(li.id);
-  });
-  pendings = cleanToDos;
-  saveToDos();
+    const li = btn.parentNode;
+  
+    pendingList.removeChild(li);
+  
+    const cleanToDos = pendings.filter(function (toDo) {
+      return toDo.id !== parseInt(li.id);
+    });
+    pendings = cleanToDos;
+    saveToDos();
 }
 
-function deleteToDo2(event) {
+function deleteToDo2_dialog(event) {
   const btn = event.target;
   const li = btn.parentNode;
 
@@ -44,6 +46,37 @@ function deleteToDo2(event) {
   finisheds = cleanToDos;
   saveToDos();
 }
+
+function deleteToDo1(event) {
+  let confirmValue = true;
+  const dialog = document.createElement('dialog');
+  dialog.id = "favDialog";
+  dialog.innerHTML = "<form method='dialog'> <p><label>정말로 삭제하시겠습니까?</label></p>  <menu>        <button value='cancel'>취소</button> <button id='confirmBtn' value='confirm'>삭제</button> </menu> </form>";
+  bodytd.appendChild(dialog);
+  dialog.showModal();
+  dialog.addEventListener('close', function onClose() {
+    if(favDialog.returnValue === "confirm"){
+       deleteToDo1_dialog(event);
+    }
+    bodytd.removeChild(dialog);
+    });
+}
+function deleteToDo2(event) {
+  let confirmValue = true;
+  const dialog = document.createElement('dialog');
+  dialog.id = "favDialog";
+  dialog.innerHTML = "<form method='dialog'> <p><label>정말로 삭제하시겠습니까?</label></p>  <menu>        <button value='cancel'>취소</button> <button id='confirmBtn' value='confirm'>삭제</button> </menu> </form>";
+  bodytd.appendChild(dialog);
+  dialog.showModal();
+  dialog.addEventListener('close', function onClose() {
+    if(favDialog.returnValue === "confirm"){
+       deleteToDo2_dialog(event);
+    }
+    bodytd.removeChild(dialog);
+    });
+}
+
+
 
 function finishToDo(event) {
   const btn = event.target;

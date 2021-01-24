@@ -1,4 +1,4 @@
-const body = document.querySelector("body");
+const bodybg = document.querySelector("body");
 
 const IMG_NUMBER = 6;
 
@@ -12,7 +12,7 @@ function paintImage(imgNumber){
     image.classList.add('bgImage');
     image.addEventListener("loadend", handleImgLoad);
     image.style.opacity=0.7;
-    body.appendChild(image);
+    bodybg.appendChild(image);
 }
 
 function genRan(){
