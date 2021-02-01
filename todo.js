@@ -1,17 +1,14 @@
 //todo 완료 / 미완료 변경 기능은 따로 challenge 구현하면서 만들어 놓았음. 
-
+const TODOSTATE_PENDING = 1;
+const TODOSTATE_FINISHED = 0;
 const toDoForm = document.querySelector(".js-toDoForm");
 const toDoInput = toDoForm.querySelector("input");
-
 const pendingList = document.querySelector(".js-toDoPending");
 const finishedList = document.querySelector(".js-toDoFinished");
-
 const bodytd = document.querySelector("body");
-
 //LocalStorage key name
 const PENDING_LS = "toDos";
 const FINISHED_LS = "finished";
-
 //objects
 let pendings = [];
 let finisheds = [];
@@ -21,62 +18,74 @@ function saveToDos() {
   localStorage.setItem(FINISHED_LS, JSON.stringify(finisheds));
 }
 
-function deleteToDo1_dialog(event){
+function deleteToDo_dialog(event){
   const btn = event.target;
-    const li = btn.parentNode;
-  
+  const li = btn.parentNode;
+  if(li.className === "li-fin"){
+    finishedList.removeChild(li);
+    const cleanToDos = finisheds.filter(function (toDo) {
+      return toDo.id !== parseInt(li.id);
+    });
+    finisheds = cleanToDos;
+  }else if(li.className === "li-todo"){
     pendingList.removeChild(li);
-  
     const cleanToDos = pendings.filter(function (toDo) {
       return toDo.id !== parseInt(li.id);
     });
     pendings = cleanToDos;
-    saveToDos();
-}
-
-function deleteToDo2_dialog(event) {
-  const btn = event.target;
-  const li = btn.parentNode;
-
-  finishedList.removeChild(li);
-
-  const cleanToDos = finisheds.filter(function (toDo) {
-    return toDo.id !== parseInt(li.id);
-  });
-  finisheds = cleanToDos;
+  }    
   saveToDos();
 }
 
-function deleteToDo1(event) {
-  let confirmValue = true;
+function deleteToDo(event) {
   const dialog = document.createElement('dialog');
-  dialog.id = "favDialog";
-  dialog.innerHTML = "<form method='dialog'> <p><label>정말로 삭제하시겠습니까?</label></p>  <menu>        <button value='cancel'>취소</button> <button id='confirmBtn' value='confirm'>삭제</button> </menu> </form>";
+  dialog.id = "deleteDialog";
+  dialog.innerHTML = "<form method='dialog'> <p><label>정말로 삭제하시겠습니까?</label></p>  <menu> <button value='cancel'>취소</button> <button id='confirmBtn' value='confirm'>삭제</button> </menu> </form>";
   bodytd.appendChild(dialog);
   dialog.showModal();
   dialog.addEventListener('close', function onClose() {
-    if(favDialog.returnValue === "confirm"){
-       deleteToDo1_dialog(event);
-    }
-    bodytd.removeChild(dialog);
-    });
-}
-function deleteToDo2(event) {
-  let confirmValue = true;
-  const dialog = document.createElement('dialog');
-  dialog.id = "favDialog";
-  dialog.innerHTML = "<form method='dialog'> <p><label>정말로 삭제하시겠습니까?</label></p>  <menu>        <button value='cancel'>취소</button> <button id='confirmBtn' value='confirm'>삭제</button> </menu> </form>";
-  bodytd.appendChild(dialog);
-  dialog.showModal();
-  dialog.addEventListener('close', function onClose() {
-    if(favDialog.returnValue === "confirm"){
-       deleteToDo2_dialog(event);
+    if(deleteDialog.returnValue === "confirm"){
+       deleteToDo_dialog(event);
     }
     bodytd.removeChild(dialog);
     });
 }
 
+function editToDo_dialog(event, newValue, dateValue){
+  const btn = event.target;
+  const li = btn.parentNode;
+  let lists;
+  li.querySelector("span").innerText = `${newValue}\n@${dateValue}`;
+  if(li.className === "li-fin"){
+    lists = finisheds;
+  }else if(li.className === "li-todo"){
+    lists = pendings;
+  } 
+  for(let i = 0; i<lists.length; i++){
+    if(lists[i].id === parseInt(li.id)){
+      lists[i].text = newValue;
+      break;
+    }
+  } 
+  saveToDos();
+}
 
+function editToDo(event) {
+  const dialog = document.createElement('dialog');
+  const fullText = event.target.parentNode.querySelector("span").innerText;
+  const oldValue = fullText.split("@")[0];
+  dialog.id = "editDialog";
+  dialog.innerHTML = `<form method='dialog'> <p><label>수정하십시오.</label></p> <input type='text' value='${oldValue}'/> <menu> <button value='cancel'>취소</button> <button id='confirmBtn' value='confirm'>수정</button> </menu> </form>`;
+  bodytd.appendChild(dialog);
+  dialog.showModal();
+  dialog.addEventListener('close', function onClose() {
+    if(editDialog.returnValue === "confirm"){
+      const newValue = dialog.querySelector("input").value;
+      editToDo_dialog(event, newValue, fullText.split("@")[1]);
+    }
+    bodytd.removeChild(dialog);
+    });
+}
 
 function finishToDo(event) {
   const btn = event.target;
@@ -90,7 +99,6 @@ function finishToDo(event) {
   pendings = cleanToDos;
 
   const fullText = li.querySelector("span").innerText;
-  console.log(`${fullText.split("@")[0]}, ${fullText.split("@")[1]}`);
   paintFinish(fullText.split("@")[0], fullText.split("@")[1]);
 }
 
@@ -106,32 +114,14 @@ function returnToDo(event) {
   finisheds = cleanToDos;
 
   const fullText = li.querySelector("span").innerText;
-  console.log(`${fullText.split("@")[0]}, ${fullText.split("@")[1]}`);
   paintToDo(fullText.split("@")[0], fullText.split("@")[1]);
 }
 
 function paintFinish(text, date) {
-  const toDoItem = document.createElement("li");
-  const delBtn = document.createElement("button");
-  const returnBtn = document.createElement("button");
-  const toDoText = document.createElement("span");
+  const toDoId = finisheds.length + 1;
+  const toDoText = `${text}\n@${date}`;
 
-  let toDoId = finisheds.length + 1;
-
-  delBtn.innerText = "❌";
-  returnBtn.innerText = "👎🏻";
-  toDoText.innerText = `${text}\n@${date}`;
-
-  delBtn.addEventListener("click", deleteToDo2);
-  returnBtn.addEventListener("click", returnToDo);
-
-  toDoItem.appendChild(toDoText);
-  toDoItem.appendChild(delBtn);
-  toDoItem.appendChild(returnBtn);
-  toDoItem.id = toDoId;
-  toDoItem.style.borderBottom = "1px solid #EBEFF4";
-
-  finishedList.appendChild(toDoItem);
+  finishedList.appendChild(makeListItem(toDoId, toDoText, TODOSTATE_FINISHED, "li-fin"));
 
   const toDoObj = {
     text: text,
@@ -143,28 +133,10 @@ function paintFinish(text, date) {
 }
 
 function paintToDo(text, date) {
-  const toDoItem = document.createElement("li");
-  const delBtn = document.createElement("button");
-  const finishBtn = document.createElement("button");
-  const toDoText = document.createElement("span");
-  
+  const toDoId = pendings.length + 1;
+  const toDoText = `${text}\n@${date}`;
 
-  let toDoId = pendings.length + 1;
-
-  delBtn.innerText = "❌";
-  finishBtn.innerText = "👍🏻";
-
-  toDoText.innerText = `${text}\n@${date}`;
-
-  delBtn.addEventListener("click", deleteToDo1);
-  finishBtn.addEventListener("click", finishToDo);
-
-  toDoItem.appendChild(toDoText);
-  toDoItem.appendChild(delBtn);
-  toDoItem.appendChild(finishBtn);
-  toDoItem.id = toDoId;
-  pendingList.appendChild(toDoItem);
-  toDoItem.style.borderBottom = "1px solid #EBEFF4";
+  pendingList.appendChild(makeListItem(toDoId, toDoText, TODOSTATE_PENDING, "li-todo"));
 
   const toDoObj = {
     text: text,
@@ -173,6 +145,41 @@ function paintToDo(text, date) {
   };
   pendings.push(toDoObj);
   saveToDos();
+}
+
+function makeListItem(toDoId, toDoText, toDoState, toDoClass){
+  const toDoItem = document.createElement("li");
+  const delBtn = document.createElement("button");
+  const editBtn = document.createElement("button");
+  const toDoSpan = document.createElement("span");
+
+  editBtn.innerText = "📝"
+  delBtn.innerText = "❌";
+  toDoSpan.innerText = toDoText;
+  
+  editBtn.addEventListener("click", editToDo);
+  delBtn.addEventListener("click", deleteToDo);
+  
+  toDoItem.appendChild(toDoSpan);
+  toDoItem.appendChild(editBtn);
+  toDoItem.appendChild(delBtn);
+  toDoItem.id = toDoId;
+  toDoItem.className = toDoClass;
+  toDoItem.style.borderBottom = "1px solid #EBEFF4";
+
+  if(toDoState === TODOSTATE_PENDING){
+    const finishBtn = document.createElement("button");
+    finishBtn.innerText = "👍🏻"; 
+    finishBtn.addEventListener("click", finishToDo);
+    toDoItem.appendChild(finishBtn);
+  }else{
+    const returnBtn = document.createElement("button");
+    returnBtn.innerText = "👎🏻"; 
+    returnBtn.addEventListener("click", returnToDo);
+    toDoItem.appendChild(returnBtn);
+  }
+
+  return toDoItem;
 }
 
 function loadToDos() {

@@ -81,7 +81,7 @@ h1 {
 
 input {
   width: 60vw;
-  height: 3.5vh;
+  height: 50px;
   display: block;
   margin: 2px;
   padding: 5px;
@@ -109,7 +109,7 @@ ul {
 }
 
 ul li {
-  font-size: 42px;
+  font-size: 36px;
   display: flex;
   flex-direction: row;
   justify-content: flex-end;
@@ -128,9 +128,8 @@ ul li button {
   border-radius: 0;
   padding: 0;
   overflow: visible;
-  cursor: pointer;
-  font-size: 70px;
-  margin-left: 5vw;
+  font-size: 60px;
+  margin-left: 2vw;
 }
 
 .js-toDoListContainer {
