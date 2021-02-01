@@ -109,7 +109,7 @@ ul {
 }
 
 ul li {
-  font-size: 36px;
+  font-size: 32px;
   display: flex;
   flex-direction: row;
   justify-content: flex-end;
@@ -125,11 +125,15 @@ ul li button {
   background: inherit;
   border: none;
   box-shadow: none;
-  border-radius: 0;
   padding: 0;
   overflow: visible;
-  font-size: 60px;
-  margin-left: 2vw;
+  font-size: 48px;
+  margin-left: 1.5vw;
+}
+
+dialog input {
+  border: 1px solid black;
+  color: black;
 }
 
 .js-toDoListContainer {
